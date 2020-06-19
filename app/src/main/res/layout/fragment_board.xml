@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.onboard.BoardFragment">
+
+   <androidx.viewpager.widget.ViewPager
+       android:id="@+id/view_Pager"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+
+   <com.google.android.material.tabs.TabLayout
+       android:id="@+id/tabDots"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       app:tabBackground="@drawable/tab_selector"
+       app:tabGravity="center"
+       android:layout_marginBottom="50dp"
+       app:tabIndicatorHeight="0dp"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+      <Button
+          android:textColor="@color/colorPrimary"
+          android:id="@+id/btn_skip"
+          android:layout_width="100dp"
+          android:layout_height="50dp"
+          android:text="Skip"
+          android:textStyle="bold"
+          android:background="@android:color/transparent"
+          android:layout_marginLeft="270dp"/>
+
+   </LinearLayout>
+</RelativeLayout>

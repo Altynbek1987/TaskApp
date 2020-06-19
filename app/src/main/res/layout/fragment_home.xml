@@ -11,6 +11,6 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/home_style"/>
+        tools:listitem="@layout/list_task"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
