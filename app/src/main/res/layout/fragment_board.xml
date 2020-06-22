@@ -33,6 +33,5 @@
           android:textStyle="bold"
           android:background="@android:color/transparent"
           android:layout_marginLeft="270dp"/>
-
    </LinearLayout>
 </RelativeLayout>

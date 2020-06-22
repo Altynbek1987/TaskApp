@@ -1,15 +1,15 @@
 package com.example.taskapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-
 import com.example.taskapp.ui.onboard.BoardFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
@@ -21,8 +21,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
 public class MainActivity extends AppCompatActivity {
+
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
@@ -44,14 +44,11 @@ public class MainActivity extends AppCompatActivity {
         });
         initNavController();
         boolean isShown = new Prefs(this).isShown();
-        if (!isShown){
-            startActivity(new Intent(this, BoardFragment.class));
-            finish();
-            return;
-        }
-            navController.navigate(R.id.boardFragment);
+        if (!isShown) navController.navigate(R.id.boardFragment);
 
+        //navController.navigate(R.id.boardFragment);
     }
+
     private void initNavController() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -88,14 +85,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.settings_clear:
+                new Prefs(MainActivity.this).clear();
+                finish();
+                break;
+        }
+        //SharedPreferences mySharedPreferences = getSharedPreferences("Ochistit", Context.MODE_PRIVATE);
         return super.onOptionsItemSelected(item);
 
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

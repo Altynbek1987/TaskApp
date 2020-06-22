@@ -1,5 +1,4 @@
 package com.example.taskapp;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,9 +15,8 @@ public class Prefs {
    public boolean isShown(){
        return preferences.getBoolean("isShown",false);
    }
-//   public void Delete(){
-//       preferences.edit().apply();
-//   }
-
+   public void clear(){
+       preferences.edit().clear().apply();
+   }
 
 }

@@ -10,19 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.Prefs;
 import com.example.taskapp.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class BoardFragment<instantiateItem> extends Fragment implements PagerAdapter.OnStartClickListener {
-    private PagerAdapter.OnStartClickListener onStartClickListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,14 +28,14 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
         return inflater.inflate(R.layout.fragment_board, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewPager viewPager = view.findViewById(R.id.view_Pager);
+      final   ViewPager viewPager = view.findViewById(R.id.view_Pager);
         PagerAdapter adapter = new PagerAdapter();
         viewPager.setAdapter(adapter);
-
 
         TabLayout tabLayout = view.findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(viewPager, true);
@@ -49,15 +47,16 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
                 controller.popBackStack();
             }
         });
-        Button button_skip = view.findViewById(R.id.btn_skip);
-        button_skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Prefs(requireActivity()).isShown(true);
-                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                controller.popBackStack();
-            }
-        });
+    final  Button button_skip= view.findViewById(R.id.btn_skip);
+            button_skip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Prefs(requireActivity()).isShown(true);
+                    NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    controller.popBackStack();
+
+                }
+            });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -68,10 +67,12 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-
     @Override
     public void OnClick() {
-        startActivity(new Intent(getActivity(),MainActivity.class));
+        startActivity(new Intent(getActivity(),MainActivity.class));}
+
+
     }
-}
+
+
 
