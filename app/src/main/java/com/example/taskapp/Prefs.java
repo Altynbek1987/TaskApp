@@ -9,12 +9,15 @@ public class Prefs {
    public Prefs(Activity activity){
        preferences = activity.getPreferences(Context.MODE_PRIVATE);
    }
+
    public void isShown(boolean value){
        preferences.edit().putBoolean("isShown",value).apply();
    }
+
    public boolean isShown(){
        return preferences.getBoolean("isShown",false);
    }
+
    public void clear(){
        preferences.edit().clear().apply();
    }

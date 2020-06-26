@@ -21,13 +21,11 @@ import com.google.android.material.tabs.TabLayout;
 
 public class BoardFragment<instantiateItem> extends Fragment implements PagerAdapter.OnStartClickListener {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_board, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -37,8 +35,9 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
         PagerAdapter adapter = new PagerAdapter();
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = view.findViewById(R.id.tabDots);
+        TabLayout tabLayout = view.findViewById(R.id.tabDots);               // Таб лойаут логика 2 строка.
         tabLayout.setupWithViewPager(viewPager, true);
+
         adapter.setOnStartClickListener(new PagerAdapter.OnStartClickListener() {
             @Override
             public void OnClick() {
@@ -65,12 +64,33 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            /*СКИП кнопкасын учунчу терезеден жашырыш учун.
+            Ушул интерфейсти чакырабыз уч методу менен.Анан onPageSelected методунда позиция менен беребиз*/
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 2) button_skip.setVisibility(View.GONE);
+                else button_skip.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
     public void OnClick() {
         startActivity(new Intent(getActivity(),MainActivity.class));}
-
 
     }
 

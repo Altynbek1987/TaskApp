@@ -26,7 +26,7 @@ public class Task implements Serializable{
         return title;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -38,4 +38,5 @@ public class Task implements Serializable{
                         description + "\n" +
                         "________________________";
     }
+
 }
