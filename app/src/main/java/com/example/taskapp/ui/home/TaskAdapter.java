@@ -23,6 +23,7 @@ import com.example.taskapp.ui.FormFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
 
@@ -70,6 +71,12 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
         return list.size();
     }
 
+    public void setList(List<Task> tasks) {
+        list.clear();
+        list.addAll(tasks);
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView textTitle;
@@ -90,7 +97,7 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
                 @Override
                 public boolean onLongClick(View v) {
                     onItemClickListener.onLongItemClick(getAdapterPosition());
-                    return false;
+                    return true;
                 }
             });
 

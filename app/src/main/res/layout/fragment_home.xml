@@ -13,6 +13,6 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/list_task" />
+        tools:listitem="@layout/list_task"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

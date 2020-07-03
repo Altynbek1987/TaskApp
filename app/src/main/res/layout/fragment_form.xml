@@ -6,23 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="@drawable/home_style"
+    android:background="@drawable/photovoda"
     tools:context=".ui.FormFragment">
 
    <EditText
        android:id="@+id/editTitle"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
        android:inputType="textCapSentences"
-       android:hint="Title"
-       app:layout_constraintTop_toTopOf="parent"/>
+       android:hint="  Title"
+       android:padding="10dp"
+       android:textColor="@color/text_white"
+       app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
        android:id="@+id/editDesc"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:inputType="textCapSentences"
-        android:hint="Desc"
+        android:hint="  Desc"
+        android:padding="10dp"
+        android:textColor="@color/text_white"
         app:layout_constraintTop_toBottomOf="@id/editTitle"/>
+    <Button
+        android:id="@+id/btn_color"
+        app:layout_constraintTop_toBottomOf="@id/editDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Выбрать цвет"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

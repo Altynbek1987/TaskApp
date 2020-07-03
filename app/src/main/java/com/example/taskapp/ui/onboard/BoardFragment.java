@@ -10,14 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.Prefs;
 import com.example.taskapp.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BoardFragment<instantiateItem> extends Fragment implements PagerAdapter.OnStartClickListener {
 
@@ -25,13 +28,14 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_board, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-      final   ViewPager viewPager = view.findViewById(R.id.view_Pager);
+        final ViewPager viewPager = view.findViewById(R.id.view_Pager);
         PagerAdapter adapter = new PagerAdapter();
         viewPager.setAdapter(adapter);
 
@@ -43,19 +47,25 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
             public void OnClick() {
                 new Prefs(requireActivity()).isShown(true);
                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                controller.popBackStack();
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    controller.navigate(R.id.phoneFragment);
+                    return;
+                }
             }
         });
-    final  Button button_skip= view.findViewById(R.id.btn_skip);
-            button_skip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new Prefs(requireActivity()).isShown(true);
-                    NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                    controller.popBackStack();
-
+        final Button button_skip = view.findViewById(R.id.btn_skip);
+        button_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Prefs(requireActivity()).isShown(true);
+                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    controller.navigate(R.id.phoneFragment);
+                    return;
                 }
-            });
+            }
+        });
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -69,7 +79,6 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
 
             /*СКИП кнопкасын учунчу терезеден жашырыш учун.
             Ушул интерфейсти чакырабыз уч методу менен.Анан onPageSelected методунда позиция менен беребиз*/
-
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -90,9 +99,10 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
 
     @Override
     public void OnClick() {
-        startActivity(new Intent(getActivity(),MainActivity.class));}
-
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
+
+}
 
 
 

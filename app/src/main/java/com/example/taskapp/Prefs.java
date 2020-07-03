@@ -8,6 +8,7 @@ public class Prefs {
 
    public Prefs(Activity activity){
        preferences = activity.getPreferences(Context.MODE_PRIVATE);
+       //preferences = activity.getPreferences(Context.MODE_APPEND);
    }
 
    public void isShown(boolean value){

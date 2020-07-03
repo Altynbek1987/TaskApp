@@ -3,6 +3,7 @@
     package="com.example.taskapp">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:screenOrientation="portrait"
         android:icon="@mipmap/ic_launcher"

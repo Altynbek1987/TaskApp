@@ -7,4 +7,16 @@
         android:orderInCategory="100"
         android:title="Очистить настройки"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/sorting_alphabetically"
+        android:orderInCategory="100"
+        android:title="Сортировка по алфавиту"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/btn_logout"
+        android:orderInCategory="100"
+        android:title="logout"
+        app:showAsAction="never" />
+
+
 </menu>
