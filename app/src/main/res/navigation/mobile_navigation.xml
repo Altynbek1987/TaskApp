@@ -23,10 +23,10 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.taskapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_firestore"
+        android:name="com.example.taskapp.ui.firestore.FirestoreFragment"
+        android:label="@string/menu_firestore"
+        tools:layout="@layout/fragment_firestore" />
     <fragment
         android:id="@+id/formFragment"
         android:name="com.example.taskapp.ui.FormFragment"
@@ -41,10 +41,19 @@
         android:id="@+id/profileFragment"
         android:name="com.example.taskapp.ui.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/phoneFragment"
         android:name="com.example.taskapp.ui.auth.PhoneFragment"
         android:label="fragment_phone"
         tools:layout="@layout/fragment_phone" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.taskapp.ui.EditFragment"
+        android:label="Редактирование"
+        tools:layout="@layout/fragment_edit" />
 </navigation>

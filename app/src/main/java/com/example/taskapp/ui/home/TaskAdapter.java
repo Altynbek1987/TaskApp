@@ -1,31 +1,24 @@
 package com.example.taskapp.ui.home;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.taskapp.R;
 import com.example.taskapp.interfeces.OnItemClickListener;
 import com.example.taskapp.models.Task;
-import com.example.taskapp.ui.FormFragment;
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
+
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -78,6 +71,7 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
     }
 
 
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView textTitle;
         private TextView textDesc;
@@ -93,6 +87,7 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
                     onItemClickListener.onItemClick(getAdapterPosition());
                 }
             });
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -100,6 +95,7 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
                     return true;
                 }
             });
+
 
             textTitle = itemView.findViewById(R.id.textTitle);
             textDesc = itemView.findViewById(R.id.textDescription);

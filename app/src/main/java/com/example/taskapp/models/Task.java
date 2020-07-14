@@ -12,10 +12,18 @@ public class Task implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+    private String docId;
     private String title;
     private String description;
     private int color;
 
+    public Task() {
+    }
+
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
     public long getId() {
         return id;
     }
@@ -25,18 +33,22 @@ public class Task implements Serializable {
     }
 
 
-    public Task(String title, String description) {
-        this.title = title;
-        this.description = description;
+    public String getDocId() {
+        return docId;
     }
 
-        public int getColor() {
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    public int getColor() {
         return color;
     }
 
     public void setColor(int color) {
         this.color = color;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -61,5 +73,6 @@ public class Task implements Serializable {
                         description + "\n" +
                         "________________________";
     }
+
 
 }

@@ -23,4 +23,11 @@ public class Prefs {
        preferences.edit().clear().apply();
    }
 
+    public void saveName(String name) {
+        preferences.edit().putString("name",name).apply();
+    }
+
+    public String getName() {
+        return preferences.getString("name","");
+    }
 }

@@ -32,7 +32,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -40,7 +39,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PhoneFragment extends Fragment {
 
-    private EditText editPhone, editSmsCode;
+    private EditText editPhoneNumber, editSmsCode;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     private NavController navController;
     private String code;
@@ -51,7 +50,6 @@ public class PhoneFragment extends Fragment {
     private LinearLayout smsContainer, phoneContainer;
 
     public PhoneFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -67,17 +65,14 @@ public class PhoneFragment extends Fragment {
                 }else {
                     Toast.makeText(getContext(), "Cмс не пришел!", Toast.LENGTH_SHORT).show();
                 }
-//                String code = phoneAuthCredential.getSmsCode();
-//               editPhone.getText();
-            }
 
+            }
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 Log.e("TAG", "onVerificationFailed" + e.getMessage());
                 Toast.makeText(getContext(), "Верификация не успешно!", Toast.LENGTH_SHORT).show();
 
             }
-
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
@@ -85,21 +80,17 @@ public class PhoneFragment extends Fragment {
                 smsCode = s;
             }
         };
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         firebaseAuth = FirebaseAuth.getInstance();
         return inflater.inflate(R.layout.fragment_phone, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editPhone = view.findViewById(R.id.editPhone);
+        editPhoneNumber = view.findViewById(R.id.editPhone);
         editSmsCode = view.findViewById(R.id.editSMSCode);
         btnContinue = view.findViewById(R.id.btnContinue);
         btnStartHome = view.findViewById(R.id.btn_startHome);
@@ -109,12 +100,12 @@ public class PhoneFragment extends Fragment {
         view.findViewById(R.id.btnContinue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = editPhone.getText().toString();
+                String phone = editPhoneNumber.getText().toString();
                 if (TextUtils.isEmpty(phone)) {
-                    editPhone.setError("Вы не ввели номер");
+                    editPhoneNumber.setError("Вы не ввели номер");
                     return;
                 } else if (phone.length() < 9) {
-                    editPhone.setError("Вы не корректно ввели номер");
+                    editPhoneNumber.setError("Вы не корректно ввели номер");
                     return;
                 }
                 phoneContainer.setVisibility(View.GONE);
@@ -129,7 +120,6 @@ public class PhoneFragment extends Fragment {
                             cancel();
                         }
                     }
-
                     @Override
                     public void onFinish() {
                         cancel();
@@ -158,7 +148,6 @@ public class PhoneFragment extends Fragment {
             }
         });
     }
-
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
@@ -167,9 +156,10 @@ public class PhoneFragment extends Fragment {
                 if (task.isSuccessful()) {
                     new Prefs(requireActivity()).isShown(true);
                     FirebaseUser user = task.getResult().getUser();
+                    // Закрыл PhoneFragment и открыл nav_host_fragment с помошю  NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    //                    controller.popBackStack();
                     NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                    controller.navigate(R.id.nav_home);
-                    navController.popBackStack();
+                    controller.popBackStack();
                     Log.d(TAG, "signInWithCredential:success все ок");
                     return;
                 } else {
@@ -180,9 +170,8 @@ public class PhoneFragment extends Fragment {
             }
         });
     }
-
     private void verify() {
-        String phone = editPhone.getText().toString().trim();
+        String phone = editPhoneNumber.getText().toString().trim();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,
                 60,

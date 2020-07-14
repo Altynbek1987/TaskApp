@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -21,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.taskapp.interfeces.OnItemClickListener;
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.home.HomeFragment;
@@ -46,9 +49,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    final int MENU_ALPHA_ID = 1;
-    final int MENU_ROTATE_ID = 4;
-    final int MENU_COMBO_ID = 5;
+
     //TextView header;
     ImageView imageViewHeader;
 
@@ -56,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private FloatingActionButton fab;
     private Toolbar toolbar;
+    private TextView headerNameMy, headerEmailMy ;
+    View hView;
+    private ImageView headerImageView;
+    private Prefs prefs;
+    private Uri filePath;
+
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -71,17 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.formFragment);
             }
         });
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        LinearLayout header = (LinearLayout) headerView.findViewById(R.id.header);
         initNavController();
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.profileFragment);
-
-            }
-        });
 //        if (!new Prefs(this).isShown())
 //            navController.navigate(R.id.boardFragment);
 //        else
@@ -97,16 +94,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavController() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        hView = navigationView.getHeaderView(0);
+        headerNameMy = (TextView)hView.findViewById(R.id.headerNameMy);
+        headerEmailMy = (TextView)hView.findViewById(R.id.headerEmailMy);
+        headerImageView = (ImageView)findViewById(R.id.headerImageView);
+
+        prefs = new Prefs(this);
+        headerNameMy.setText(prefs.getName());
+        if (prefs.getName().isEmpty());
+        //Glide.with(this).load(filePath).circleCrop().into(headerImageView);
+
+        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.close();
+                navController.navigate(R.id.profileFragment);
+            }
+        });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_firestore)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
@@ -123,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,39 +183,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void onTheEndClick() {
-
-    }
-
 }
-
-//@Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-//        switch (v.getId()){
-//            case R.id.headerImageView:
-//                menu.add(MENU_ALPHA_ID);
-//                menu.add(MENU_COMBO_ID);
-//                menu.add(MENU_ROTATE_ID);
-//                break;
-//        }
-//        super.onCreateContextMenu(menu,v,menuInfo);
-//    }
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item){
-//        Animation anim = null;
-//        switch (item.getItemId()){
-//            case MENU_ALPHA_ID:
-//                anim = AnimationUtils.loadAnimation(this,R.anim.myalpha);
-//                break;
-//            case MENU_COMBO_ID:
-//                anim = AnimationUtils.loadAnimation(this,R.anim.mycombo);
-//                break;
-//            case MENU_ROTATE_ID:
-//                anim = AnimationUtils.loadAnimation(this,R.anim.myrotate);
-//                break;
-//        }
-//        header.startAnimation(anim);
-//        return super.onContextItemSelected(item);
-//    }
-
-//registerForContextMenu(header);

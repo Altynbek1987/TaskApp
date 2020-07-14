@@ -22,12 +22,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Database;
+import androidx.room.Update;
 
 import com.example.taskapp.App;
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 import com.example.taskapp.interfeces.OnItemClickListener;
 import com.example.taskapp.models.Task;
+import com.example.taskapp.ui.firestore.FirestoreFragment;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,7 @@ public class HomeFragment extends Fragment {
     private TaskAdapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
     private NavController navController;
-
+    private FirestoreFragment firestoreFragment;
     private FragmentResultListener fragmentResultListener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,7 +74,6 @@ public class HomeFragment extends Fragment {
 //            list.addAll(App.getInstance().getDatabase().taskDao().getAll());  //Выташил все данные из Таска в хом фрагмент
             adapter.notifyDataSetChanged();
         }
-
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
 //        fragmentResultListener = new FragmentResultListener() {
@@ -101,29 +104,26 @@ public class HomeFragment extends Fragment {
                 bundle.putSerializable("task", list.get(position));
                 navController.navigate(R.id.action_nav_home_to_formFragment, bundle);
             }
-
             @Override
             public void onLongItemClick(final int position) {
+
                 showAlert(list.get(position));
             }
 
             private void showAlert(final Task task) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Вы хотите удалить?" + task.getTitle() + task.getDescription() + "?")
-                        .setNegativeButton("Нет", null)
+                builder.setMessage("Вы хотите удалить?" + task.getTitle() + task.getDescription())
+                        .setNegativeButton("Нет",null)
                         .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 App.getInstance().getDatabase().taskDao().delete(task);
+
                             }
                         });
                 builder.show();
             }
 
-            @Override
-            public void onTheEndClick() {
-
-            }
         });
     }
 

@@ -12,12 +12,11 @@
 
     <string name="menu_Задачи">Задачи</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_firestore">Firestore</string>
+
     <string name="home_second">Home Second</string>
 
     <string name="exit">Выход</string>
-    <string name="yes">Да</string>
-    <string name="no">Нет</string>
     <string name="cancel">Отмена</string>
     <string name="save_data">Сохранить данные?</string>
     <string name="saved">Сохранено</string>

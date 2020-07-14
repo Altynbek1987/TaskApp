@@ -34,8 +34,8 @@
         android:id="@+id/sms_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/editSMSCode"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Start" />
+            android:text="Войти" />
     </LinearLayout>
 
     <TextView
