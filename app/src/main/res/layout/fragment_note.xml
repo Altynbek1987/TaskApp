@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.note.NoteFragment">
+
+    <EditText
+        android:id="@+id/text_Folder_write"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:textAlignment="center"
+        android:hint="Enter text"/>
+
+    <ScrollView
+        android:id="@+id/SCROLLER_ID"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scrollbars="vertical"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/text_Folder_write">
+    <TextView
+        android:id="@+id/text_Folder_read"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/text_Folder_write" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_Read"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Text read"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/SCROLLER_ID"/>
+
+    <Button
+        android:id="@+id/btn_Write"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:text="Save text"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SCROLLER_ID"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

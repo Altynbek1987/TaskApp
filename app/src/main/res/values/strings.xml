@@ -13,6 +13,7 @@
     <string name="menu_Задачи">Задачи</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_firestore">Firestore</string>
+    <string name="menu_note">note</string>
 
     <string name="home_second">Home Second</string>
 

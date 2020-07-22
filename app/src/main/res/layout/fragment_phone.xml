@@ -19,8 +19,7 @@
             android:layout_height="50dp"
             android:hint="Введите номер телефона"
             android:inputType="phone"
-            android:padding="10dp"
-            android:text="+996" />
+            android:padding="10dp"/>
 
         <Button
             android:id="@+id/btnContinue"

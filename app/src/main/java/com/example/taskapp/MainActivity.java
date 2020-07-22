@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -27,12 +29,17 @@ import com.bumptech.glide.Glide;
 import com.example.taskapp.interfeces.OnItemClickListener;
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.home.HomeFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -43,10 +50,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     View hView;
     private ImageView headerImageView;
     private Prefs prefs;
-    private Uri filePath;
+    private ImageView imageProfile;
+
 
 
     @SuppressLint("WrongViewCast")
@@ -84,13 +96,12 @@ public class MainActivity extends AppCompatActivity {
 //        else
 //        if (FirebaseAuth.getInstance().getCurrentUser() == null) navController.navigate(R.id.phoneFragment);
         boolean isShown = new Prefs(this).isShown();
-        if (!isShown) {
+        if (!isShown)
             navController.navigate(R.id.boardFragment);
-            return;
-        } else if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
             navController.navigate(R.id.phoneFragment);
-            return;
-        }
+
+
     }
 
     private void initNavController() {
@@ -99,12 +110,17 @@ public class MainActivity extends AppCompatActivity {
         hView = navigationView.getHeaderView(0);
         headerNameMy = (TextView)hView.findViewById(R.id.headerNameMy);
         headerEmailMy = (TextView)hView.findViewById(R.id.headerEmailMy);
-        headerImageView = (ImageView)findViewById(R.id.headerImageView);
-
+        // Здесь показал имя на Хедере. Взял из prefs
         prefs = new Prefs(this);
         headerNameMy.setText(prefs.getName());
-        if (prefs.getName().isEmpty());
-        //Glide.with(this).load(filePath).circleCrop().into(headerImageView);
+
+        //TextView name = headerNameMy.findViewById(R.id.headerNameMy);
+        Log.e("ololo", "initNavController: " + prefs.getAvatarUrl());
+        ImageView icon = hView.findViewById(R.id.headerImageView);
+        Glide.with(this)
+                .load(prefs.getAvatarUrl())
+                .circleCrop().into(icon);
+
 
         navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_firestore)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_firestore,R.id.nav_note)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -133,17 +149,20 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     toolbar.setVisibility(View.VISIBLE);
                 }
+                if (destination.getId() == R.id.phoneFragment){
+                    toolbar.setVisibility(View.GONE);
+                }else {
+                    toolbar.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
     private boolean flag;
 
     @Override
@@ -175,12 +194,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 }

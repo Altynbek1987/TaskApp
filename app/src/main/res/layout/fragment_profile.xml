@@ -14,7 +14,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/profile_style" />
+        android:background="@drawable/ic_launcher_foreground"/>
 
         <TextView
             android:id="@+id/text_Name"
@@ -37,13 +37,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_Name"/>
 
-    <Button
-        android:id="@+id/btn_save_profile"
-        app:layout_constraintTop_toBottomOf="@id/image_pen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Сохранить"/>
 
 
 

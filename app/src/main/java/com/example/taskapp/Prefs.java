@@ -30,4 +30,12 @@ public class Prefs {
     public String getName() {
         return preferences.getString("name","");
     }
+
+    public void saveAvatarUrl(String avatar) {
+        preferences.edit().putString("avatar",avatar).apply();
+    }
+    public String getAvatarUrl() {
+        return preferences.getString("avatar","");
+    }
+
 }

@@ -49,6 +49,7 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     controller.navigate(R.id.phoneFragment);
+                    close();
                     return;
                 }
             }
@@ -61,6 +62,7 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     controller.navigate(R.id.phoneFragment);
+                    close();
                     return;
                 }
             }
@@ -100,6 +102,10 @@ public class BoardFragment<instantiateItem> extends Fragment implements PagerAda
     @Override
     public void OnClick() {
         startActivity(new Intent(getActivity(), MainActivity.class));
+    }
+    private void close() {
+        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        controller.popBackStack();
     }
 
 }

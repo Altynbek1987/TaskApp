@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
+import android.telecom.PhoneAccount;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,7 +63,12 @@ public class PhoneFragment extends Fragment {
                 code = phoneAuthCredential.getSmsCode();
                 if (code != null) {
                     editSmsCode.setText(code);
-                }else {
+                }
+//                if (FirebaseAuth.getInstance().getCurrentUser() != null){
+//                    navController.navigate(R.id.nav_host_fragment);
+//                }
+                else {
+
                     Toast.makeText(getContext(), "Cмс не пришел!", Toast.LENGTH_SHORT).show();
                 }
 

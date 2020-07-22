@@ -33,6 +33,7 @@
         android:id="@+id/btn_color"
         app:layout_constraintTop_toBottomOf="@id/editDesc"
         android:layout_width="match_parent"
+        android:textAllCaps="false"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Выбрать цвет"/>

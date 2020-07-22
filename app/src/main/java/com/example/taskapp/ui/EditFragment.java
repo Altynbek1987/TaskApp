@@ -22,6 +22,7 @@ public class EditFragment extends Fragment {
 
     private EditText editText;
 
+
     public EditFragment() {
         // Required empty public constructor
     }
